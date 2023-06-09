@@ -359,6 +359,7 @@ void final_check()
     printf("All ships passed the final check.\n");
 }
 
+
 int get_file_size(FILE *f) {
   fseek(f, 0, SEEK_END);
   return ftell(f);
@@ -395,13 +396,10 @@ void encrypt() {
   int fileSize = get_file_size(fdata);
   char *file_data = (char *)malloc(fileSize + 1);
   char *output = (char *)malloc(fileSize + 2);
-  char *key[100];
+  char *key = generate_key("pasword123");
   rewind(fdata);
 
   output[0] = key[0];
-
-  printf("Enter your pasword:");
-  scanf("%s", key);
 
   if (fdata == NULL) {
     printf("File can't open");
@@ -425,14 +423,13 @@ void encrypt() {
   free(file_data);
 }
 
-char *decrypt() {
+void decrypt() {
   FILE *fdata = fopen("replay.txt", "rb+");
   int fileSize = get_file_size(fdata);
   char *file_data = (char *)malloc(fileSize + 1);
   char psw[100], key[100];
   rewind(fdata);
 
-  printf("Enter your pasword:");
   scanf("%s", psw);
 
   if (fdata == NULL) {
